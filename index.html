@@ -45,4 +45,159 @@
 
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--main); }
         
-        .btn-submit { width: 100%; padding: 22px; background: var(--main); color: white; border: none; border-radius: 15px; font-weight: 700; margin-top: 30px; cursor: pointer; font-size:
+        .btn-submit { width: 100%; padding: 22px; background: var(--main); color: white; border: none; border-radius: 15px; font-weight: 700; margin-top: 30px; cursor: pointer; font-size: 1.4rem; text-transform: uppercase; transition: 0.3s; }
+        .btn-submit:active { transform: scale(0.96); opacity: 0.8; }
+        .btn-submit:disabled { background: #999; cursor: not-allowed; }
+
+        /* History */
+        .h-item { border-bottom: 2px solid #f0f0f0; padding: 15px 0; }
+        .h-date { color: #999; font-size: 0.95rem; }
+        .h-topic { font-weight: 700; font-size: 1.2rem; margin: 5px 0; color: var(--main); }
+        .h-note { color: #444; font-size: 1.1rem; }
+
+        .loading { position: fixed; inset: 0; background: rgba(255,255,255,0.95); display: none; align-items: center; justify-content: center; z-index: 1000; font-weight: 700; font-size: 1.6rem; }
+    </style>
+</head>
+<body>
+
+<div id="loading" class="loading">SYNCING DATA...</div>
+
+<div class="container">
+    <div class="card-vip">
+        <div class="card-label">THAI SINTO SERVICES</div>
+        <div id="dispName" class="card-name">GUEST</div>
+        <div id="dispCompany" class="card-detail">Company: -</div>
+        <div id="dispEmail" class="card-detail">Email: -</div>
+        <img id="userImg" src="https://via.placeholder.com/110">
+    </div>
+
+    <div class="section">
+        <h3>Request / แจ้งบริการ</h3>
+        
+        <label>Subject / หัวข้อ</label>
+        <select id="subject">
+            <option value="" disabled selected>-- เลือกหัวข้อบริการ --</option>
+            <option value="Machine Inquiry">Machine Inquiry สนใจสอบถามข้อมูลเครื่องจักร</option>
+            <option value="Preventive Maintenance (PM) Check">Preventive Maintenance (PM) Check สอบถามตรวจเช็คสภาพเครื่องจักร</option>
+            <option value="Maintenance Spare Parts Quotation">Maintenance Spare Parts Quotation สอบถามขอใบเสนอราคา</option>
+        </select>
+        
+        <label>Full Name / ชื่อ-นามสกุล</label>
+        <input type="text" id="fullName" placeholder="Your full name">
+        
+        <label>Company / บริษัท</label>
+        <input type="text" id="company" placeholder="Company name">
+
+        <label>Email / อีเมล</label>
+        <input type="email" id="email" placeholder="example@email.com">
+        
+        <label>Phone / เบอร์โทร</label>
+        <input type="tel" id="phone" placeholder="0XXXXXXXXX" maxlength="10">
+        
+        <label>Details / รายละเอียด</label>
+        <textarea id="userNote" rows="3" placeholder="Explain your request..."></textarea>
+        
+        <button id="btnSave" class="btn-submit" onclick="saveData()">SUBMIT REQUEST</button>
+    </div>
+
+    <div class="section">
+        <h3>Recent Activity / ประวัติ</h3>
+        <div id="historyList"></div>
+    </div>
+</div>
+
+<script>
+    const LIFF_ID = "2008820291-s6WNZ5xr"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzioHa4sM9R63EuHENKaP_zcOSqnlODucdO3_NLZGYu7Iz2t9-e05BE8WmOCoEsEik8/exec"; 
+
+    async function main() {
+        try {
+            await liff.init({ liffId: LIFF_ID });
+            if (!liff.isLoggedIn()) {
+                liff.login();
+            } else {
+                const profile = await liff.getProfile();
+                document.getElementById("userImg").src = profile.pictureUrl;
+                loadData(profile.userId);
+            }
+        } catch (e) { console.error(e); }
+    }
+
+    async function loadData(userId) {
+        try {
+            const res = await fetch(`${SCRIPT_URL}?userId=${userId}`);
+            const data = await res.json();
+            if (data.status === "found") {
+                document.getElementById("dispName").innerText = data.user.fullName.toUpperCase();
+                document.getElementById("dispCompany").innerText = "Company: " + data.user.company;
+                document.getElementById("dispEmail").innerText = "Email: " + data.user.email;
+                
+                document.getElementById("fullName").value = data.user.fullName;
+                document.getElementById("company").value = data.user.company;
+                document.getElementById("email").value = data.user.email;
+                document.getElementById("phone").value = data.user.phone;
+                
+                document.getElementById("historyList").innerHTML = data.history.map(h => `
+                    <div class="h-item">
+                        <div class="h-date">${h.date}</div>
+                        <div class="h-topic">${h.subject.toUpperCase()}</div>
+                        <div class="h-note">${h.note || '-'}</div>
+                    </div>
+                `).join('');
+            }
+        } catch (e) { }
+    }
+
+    async function saveData() {
+        const sub = document.getElementById("subject").value;
+        const name = document.getElementById("fullName").value;
+        const comp = document.getElementById("company").value;
+        const email = document.getElementById("email").value;
+        const ph = document.getElementById("phone").value;
+        const note = document.getElementById("userNote").value;
+
+        // การตรวจสอบข้อมูล
+        if (!sub) return alert("กรุณาเลือก SUBJECT / หัวข้อ");
+        if (!name || !email || !ph) return alert("กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน");
+
+        document.getElementById("loading").style.display = "flex";
+        document.getElementById("btnSave").disabled = true;
+
+        try {
+            const profile = await liff.getProfile();
+            const payload = {
+                userId: profile.userId, 
+                lineName: profile.displayName,
+                fullName: name, 
+                company: comp || "-", 
+                email: email, 
+                phone: ph,
+                subject: sub, 
+                note: note
+            };
+
+            await fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) });
+
+            if (liff.isInClient()) {
+                const ts = new Date().toLocaleString('en-GB');
+                await liff.sendMessages([{
+                    "type": "text",
+                    "text": `● NEW SERVICE REQUEST\n—\nSubject: ${sub}\nDetails: ${note || '-'}\n\nCustomer: ${name}\nCompany: ${comp || '-'}\nEmail: ${email}\nPhone: ${ph}\n—\n*Recorded at ${ts}*`
+                }]);
+            }
+            alert("SUCCESSFULLY SUBMITTED!");
+            location.reload();
+        } catch (e) { 
+            alert("Error: Cannot connect to server."); 
+        } finally {
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("btnSave").disabled = false;
+        }
+    }
+
+    window.onload = function() {
+        main();
+    };
+</script>
+</body>
+</html>
