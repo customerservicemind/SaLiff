@@ -4,435 +4,191 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THAI SINTO SERVICES</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
         :root { 
-            --main: #1a1a1a; 
-            --main-hover: #333333;
-            --bg: #f8fafc; 
-            --text: #1e293b; 
-            --text-light: #64748b;
-            --border: #e2e8f0;
-            --radius-lg: 20px;
-            --radius-sm: 12px;
-        }
-
-        * {
-            box-sizing: border-box;
-            transition: all 0.2s ease-in-out;
-        }
-
-        body { 
-            font-family: 'Kanit', sans-serif; 
-            background: var(--bg); 
-            margin: 0; 
-            padding: 20px 15px; 
-            color: var(--text); 
-            line-height: 1.5;
-        }
-
-        .container { 
-            width: 100%; 
-            max-width: 440px; 
-            margin: 0 auto; 
+            --main: #00f2fe; 
+            --secondary: #4facfe;
+            --bg-dark: #0a0f1d; 
+            --card-bg: rgba(20, 27, 45, 0.7);
+            --text-main: #ffffff;
+            --text-muted: #8a99ad;
+            --border-color: rgba(0, 242, 254, 0.2);
         }
         
-        /* Premium Card - Brushed Metallic Silver */
+        body { 
+            font-family: 'Kanit', sans-serif; 
+            background: radial-gradient(circle at 50% 0%, #141e33 0%, var(--bg-dark) 70%); 
+            margin: 0; 
+            padding: 15px; 
+            color: var(--text-main); 
+            min-height: 100vh;
+        }
+        
+        .container { width: 100%; max-width: 420px; margin: 0 auto; padding-bottom: 30px; }
+        
+        /* Tech Premium Card - Holographic Cyber Look */
         .card-vip { 
-            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 25%, #94a3b8 50%, #64748b 100%); 
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.15) 0%, rgba(0, 242, 254, 0.05) 100%); 
             color: #ffffff; 
             padding: 35px 25px; 
-            border-radius: var(--radius-lg); 
-            box-shadow: 0 20px 40px rgba(100, 116, 139, 0.25);
+            border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.1);
             position: relative; 
-            margin-bottom: 40px; 
+            margin-bottom: 30px; 
             text-align: left;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            overflow: visible;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
         }
-
         .card-vip::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.4) 0%, transparent 50%);
-            border-radius: var(--radius-lg);
-            pointer-events: none;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--main));
         }
-
         .card-label { 
-            font-size: 0.85rem; 
-            letter-spacing: 2px; 
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem; 
+            letter-spacing: 3px; 
             font-weight: 700; 
-            color: rgba(255, 255, 255, 0.9); 
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            margin-bottom: 5px;
+            color: var(--main); 
+            display: inline-block; 
+            margin-bottom: 12px; 
         }
-
         .card-name { 
             font-size: 2rem; 
             font-weight: 700; 
-            margin: 5px 0 15px 0; 
+            margin: 5px 0; 
             text-transform: uppercase; 
-            color: #ffffff; 
-            text-shadow: 0 2px 4px rgba(0,0,0,0.15); 
-            line-height: 1.2;
+            background: linear-gradient(to right, #fff, #b3e5fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
         .card-detail { 
             font-size: 0.95rem; 
-            margin-top: 4px; 
-            color: rgba(255, 255, 255, 0.85); 
-            font-weight: 400; 
+            margin-top: 6px; 
+            color: var(--text-muted); 
+            font-weight: 300; 
             display: flex;
             align-items: center;
         }
         
         #userImg { 
             position: absolute; 
-            right: 25px; 
-            bottom: -25px; 
-            width: 100px; 
-            height: 100px; 
-            border-radius: 24px; 
-            border: 4px solid #ffffff; 
-            background: #ffffff; 
-            box-shadow: 0 12px 25px rgba(0,0,0,0.12); 
+            right: 20px; 
+            top: 50%;
+            transform: translateY(-50%);
+            width: 85px; 
+            height: 85px; 
+            border-radius: 18px; 
+            border: 2px solid var(--main); 
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3); 
             object-fit: cover; 
         }
 
         /* Form Layout */
         .section { 
-            background: #ffffff; 
-            border-radius: var(--radius-lg); 
-            padding: 30px 24px; 
-            margin-bottom: 25px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02); 
-            border: 1px solid rgba(0,0,0,0.03);
+            background: var(--card-bg); 
+            border-radius: 24px; 
+            padding: 25px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
         }
-
         h3 { 
-            margin: 0 0 25px 0; 
-            font-size: 1.35rem; 
-            font-weight: 700; 
+            margin: 0 0 20px 0; 
+            font-size: 1.3rem; 
+            font-weight: 600; 
             text-transform: uppercase; 
+            color: #fff;
             display: flex;
             align-items: center;
-            color: var(--text); 
+            letter-spacing: 1px;
         }
-
         h3::before {
             content: '';
             display: inline-block;
-            width: 6px;
-            height: 24px;
+            width: 4px; height: 18px;
             background: var(--main);
-            border-radius: 4px;
-            margin-right: 12px;
+            margin-right: 10px;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--main);
         }
         
         label { 
-            font-size: 0.9rem; 
-            font-weight: 500; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
             margin-top: 18px; 
             display: block; 
-            color: var(--text);
-        }
-
-        label:first-of-type {
-            margin-top: 0;
+            text-transform: uppercase; 
+            color: var(--text-muted); 
+            letter-spacing: 0.5px;
         }
         
-        /* Input & Dropdown Styling */
+        /* Input & Dropdown Styling - Futuristic Glass UI */
         input, textarea, select { 
             width: 100%; 
             padding: 14px 16px; 
             margin-top: 8px; 
-            border: 1.5px solid var(--border); 
-            border-radius: var(--radius-sm); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 12px; 
             box-sizing: border-box; 
-            font-family: 'Kanit', sans-serif; 
+            font-family: 'Kanit'; 
             font-size: 1rem; 
-            background-color: #f8fafc;
-            color: var(--text) !important; 
+            background-color: rgba(10, 15, 29, 0.6);
+            color: var(--text-main) !important; 
+            transition: all 0.3s ease;
+        }
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
         }
         
         /* Custom Dropdown Arrow */
         select { 
-            appearance: none; 
-            -webkit-appearance: none;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2364748b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
-            background-repeat: no-repeat; 
-            background-position: right 16px top 50%; 
-            background-size: 12px auto;
-            padding-right: 40px; 
-            cursor: pointer;
+            appearance: none; -webkit-appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2300f2fe%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto;
+            padding-right: 40px; cursor: pointer;
+        }
+        select option {
+            background-color: #141e33;
+            color: #fff;
         }
 
         input:focus, select:focus, textarea:focus { 
             outline: none; 
-            border-color: #94a3b8; 
-            background-color: #ffffff; 
-            box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.1);
+            border-color: var(--main); 
+            background-color: rgba(10, 15, 29, 0.9);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
         }
         
+        /* Neon Glow Button */
         .btn-submit { 
             width: 100%; 
             padding: 18px; 
-            background: var(--main); 
-            color: white; 
+            background: linear-gradient(90deg, var(--secondary), var(--main)); 
+            color: #0a0f1d; 
             border: none; 
-            border-radius: var(--radius-sm); 
+            border-radius: 14px; 
             font-weight: 700; 
             margin-top: 25px; 
             cursor: pointer; 
-            font-size: 1.15rem; 
+            font-size: 1.2rem; 
             text-transform: uppercase; 
+            transition: all 0.3s ease; 
             letter-spacing: 1px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
         }
-
         .btn-submit:hover {
-            background: var(--main-hover);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 25px rgba(0, 242, 254, 0.6);
         }
-
-        .btn-submit:active { 
-            transform: scale(0.98); 
-        }
-
-        .btn-submit:disabled { 
-            background: #cbd5e1; 
-            cursor: not-allowed;
-            box-shadow: none;
-        }
+        .btn-submit:active { transform: scale(0.98); opacity: 0.9; }
+        .btn-submit:disabled { background: #3b485d; color: #697a90; box-shadow: none; }
 
         /* History List */
         .h-item { 
-            border-bottom: 1px solid var(--border); 
-            padding: 16px 0; 
-        }
-        .h-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-        .h-date { 
-            color: var(--text-light); 
-            font-size: 0.8rem; 
-            font-weight: 500;
-        }
-        .h-topic { 
-            font-weight: 700; 
-            font-size: 1.05rem; 
-            margin: 6px 0; 
-            color: var(--text); 
-        }
-        .h-note { 
-            color: var(--text-light); 
-            font-size: 0.95rem; 
-            background: #f8fafc;
-            padding: 8px 12px;
-            border-radius: 8px;
-            margin-top: 6px;
-            display: inline-block;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* Loading Animation */
-        .loading { 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(255,255,255,0.9); 
-            backdrop-filter: blur(5px);
-            display: none; 
-            flex-direction: column;
-            gap: 15px;
-            align-items: center; 
-            justify-content: center; 
-            z-index: 1000; 
-            font-weight: 700; 
-            font-size: 1.2rem; 
-            color: var(--text); 
-            letter-spacing: 2px;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border);
-            border-top: 4px solid var(--main);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
-</head>
-<body>
-
-<div id="loading" class="loading">
-    <div class="spinner"></div>
-    <div>SYNCING DATA...</div>
-</div>
-
-<div class="container">
-    <!-- Premium Card - Metallic Silver -->
-    <div class="card-vip">
-        <div class="card-label">THAI SINTO SERVICES</div>
-        <div id="dispName" class="card-name">GUEST</div>
-        <div id="dispCompany" class="card-detail">Company: -</div>
-        <div id="dispEmail" class="card-detail">Email: -</div>
-        <img id="userImg" src="https://via.placeholder.com/110">
-    </div>
-
-    <!-- Form Section -->
-    <div class="section">
-        <h3>Request / แจ้งบริการ</h3>
-        
-        <label>Subject / หัวข้อ</label>
-        <select id="subject">
-            <option value="" disabled selected>-- เลือกหัวข้อบริการ --</option>
-            <option value="Machine Inquiry">Machine Inquiry สนใจสอบถามข้อมูลเครื่องจักร</option>
-            <option value="Preventive Maintenance (PM) Check">Preventive Maintenance (PM) Check สอบถามตรวจเช็คสภาพเครื่องจักร</option>
-            <option value="Spare Parts Quotation">Spare Parts Quotation สอบถามขอใบเสนอราคา</option>
-            <option value="Dry Ice Blasting Service บริการทำความสะอาด">Dry Ice Blasting Service บริการทำความสะอาด</option>
-            <option value="Dust Check System บริการตรวจสอบระบบดักฝุ่น">Dust Check System บริการตรวจสอบระบบดักฝุ่น</option>
-            <option value="Dust Detection App บริการตรวจจับการสะสมของฝุ่น">Dust Detection App บริการตรวจจับการสะสมของฝุ่น</option>
-            <option value="Remote Monitoring System บริการติดตามสถานะเครื่องจักร">Remote Monitoring System บริการติดตามสถานะเครื่องจักร</option>
-        </select>
-        
-        <label>Full Name / ชื่อ-นามสกุล</label>
-        <input type="text" id="fullName" placeholder="Your full name">
-        
-        <label>Company / บริษัท</label>
-        <input type="text" id="company" placeholder="Company name">
-
-        <label>Email / อีเมล</label>
-        <input type="email" id="email" placeholder="example@email.com">
-        
-        <label>Phone / เบอร์โทร</label>
-        <input type="tel" id="phone" placeholder="0XXXXXXXXX" maxlength="10">
-        
-        <label>Details / รายละเอียด</label>
-        <textarea id="userNote" rows="3" placeholder="Explain your request..."></textarea>
-        
-        <button id="btnSave" class="btn-submit" onclick="saveData()">SUBMIT REQUEST</button>
-    </div>
-
-    <!-- History Section -->
-    <div class="section">
-        <h3>Recent Activity / ประวัติ</h3>
-        <div id="historyList">
-            <p style="color: var(--text-light); text-align:center; margin: 10px 0 0 0; font-size: 0.95rem;">No recent activity</p>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Configuration
-    const LIFF_ID = "2008820291-s6WNZ5xr"; 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxH0y1xx-dno-Zywhe4rwRy0a6UayVqNA48-Vbe4ghLJB9k0Vk-OgqEdfcQi-Cd2UBG/exec"; 
-
-    async function main() {
-        try {
-            await liff.init({ liffId: LIFF_ID });
-            if (!liff.isLoggedIn()) {
-                liff.login();
-            } else {
-                const profile = await liff.getProfile();
-                document.getElementById("userImg").src = profile.pictureUrl;
-                loadData(profile.userId);
-            }
-        } catch (e) { console.error("LIFF Init Error:", e); }
-    }
-
-    async function loadData(userId) {
-        try {
-            const res = await fetch(`${SCRIPT_URL}?userId=${userId}`);
-            const data = await res.json();
-            if (data.status === "found") {
-                document.getElementById("dispName").innerText = data.user.fullName.toUpperCase();
-                document.getElementById("dispCompany").innerText = "Company: " + data.user.company;
-                document.getElementById("dispEmail").innerText = "Email: " + data.user.email;
-                
-                document.getElementById("fullName").value = data.user.fullName;
-                document.getElementById("company").value = data.user.company;
-                document.getElementById("email").value = data.user.email;
-                document.getElementById("phone").value = data.user.phone;
-                
-                if (data.history && data.history.length > 0) {
-                    document.getElementById("historyList").innerHTML = data.history.map(h => `
-                        <div class="h-item">
-                            <div class="h-date">${h.date}</div>
-                            <div class="h-topic">${h.subject}</div>
-                            <div class="h-note">${h.note || '-'}</div>
-                        </div>
-                    `).join('');
-                }
-            }
-        } catch (e) { console.log("Data Load Error"); }
-    }
-
-    async function saveData() {
-        const sub = document.getElementById("subject").value;
-        const name = document.getElementById("fullName").value.trim();
-        const comp = document.getElementById("company").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const ph = document.getElementById("phone").value.trim();
-        const note = document.getElementById("userNote").value.trim();
-
-        // Validation
-        if (!sub) return alert("กรุณาเลือก SUBJECT / หัวข้อ");
-        if (!name || !email || !ph) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-        if (ph.length < 9) return alert("กรุณาตรวจสอบเบอร์โทรศัพท์");
-
-        document.getElementById("loading").style.display = "flex";
-        document.getElementById("btnSave").disabled = true;
-
-        try {
-            const profile = await liff.getProfile();
-            const payload = {
-                userId: profile.userId, 
-                lineName: profile.displayName,
-                fullName: name, 
-                company: comp || "-", 
-                email: email, 
-                phone: ph,
-                subject: sub, 
-                note: note
-            };
-
-            // Post to Google Sheets
-            await fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) });
-
-            // Send LINE Message
-            if (liff.isInClient()) {
-                const ts = new Date().toLocaleString('th-TH');
-                await liff.sendMessages([{
-                    "type": "text",
-                    "text": `● NEW SERVICE REQUEST\n—\nSubject: ${sub}\nDetails: ${note || '-'}\n\nCustomer: ${name}\nCompany: ${comp || '-'}\nEmail: ${email}\nPhone: ${ph}\n—\n*Recorded at ${ts}*`
-                }]);
-            }
-
-            alert("SUCCESSFULLY SUBMITTED!");
-            location.reload();
-        } catch (e) { 
-            alert("Error: Connection Failed"); 
-        } finally {
-            document.getElementById("loading").style.background = "none";
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("btnSave").disabled = false;
-        }
-    }
-
-    window.onload = function() {
-        main();
-    };
-</script>
-</body>
-</html>
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+            padding: 15px 0
