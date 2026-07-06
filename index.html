@@ -83,10 +83,10 @@
             <option value="Machine Inquiry">Machine Inquiry สนใจสอบถามข้อมูลเครื่องจักร</option>
             <option value="Preventive Maintenance (PM) Check">Preventive Maintenance (PM) Check สอบถามตรวจเช็คสภาพเครื่องจักร</option>
             <option value="Spare Parts Quotation">Spare Parts Quotation สอบถามขอใบเสนอราคา</option>
-            <option value="Dry Ice Blasting Service">Dry Ice Blasting Service บริการทำความสะอาดไม่ทำลายพื้นผิว ไร้สารเคมี</option>
-            <option value="Dust Check System">Dust Check System บริการระบบตรวจจับสิ่งผิดปกติป้องกันอัคคีภัยในระบบดักฝุ่น</option>
-            <option value="Dust Detection App">Dust Detection App บริการกล้องอินฟราเรดตรวจจับการสะสมของฝุ่นในท่อ</option>
-            <option value="Remote Monitoring System">Remote Monitoring System บริการระบบติดตามตรวจสอบสถานะระยะไกลผ่านเครือข่าย IoT</option>
+            <option value="Dry Ice Blasting Service">DRY ICE BLASTING SERVICE – บริการทำความสะอาดไม่ทำลายพื้นผิว ไร้สารเคมี</option>
+            <option value="Dust Check System">DUST CHECK SYSTEM – บริการระบบตรวจจับสิ่งผิดปกติป้องกันอัคคีภัยในระบบดักฝุ่น</option>
+            <option value="Dust Detection App">DUST DETECTION APP – บริการกล้องอินฟราเรดตรวจจับการสะสมของฝุ่นในท่อ</option>
+            <option value="Remote Monitoring System">Remote Monitoring System – บริการระบบติดตามตรวจสอบสถานะระยะไกลผ่านเครือข่าย IoT</option>
         </select>
         
         <label>Full Name / ชื่อ-นามสกุล</label>
@@ -110,4 +110,117 @@
     <div class="section">
         <h3>Recent Activity / ประวัติ</h3>
         <div id="historyList">
-            <p style="color
+            <p style="color:#999; text-align:center;">No recent activity</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Configuration
+    const LIFF_ID = "2008820291-s6WNZ5xr"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby1_TRp6QB97LiYtUjj9dMxZ0iT15e99Px9abdk9O_bj19QFUpDsT-61Wep75GrjAbq/exec"; 
+
+    async function main() {
+        try {
+            await liff.init({ liffId: LIFF_ID });
+            if (!liff.isLoggedIn()) {
+                liff.login();
+            } else {
+                const profile = await liff.getProfile();
+                document.getElementById("userImg").src = profile.pictureUrl || "https://via.placeholder.com/110";
+                loadData(profile.userId);
+            }
+        } catch (e) { console.error("LIFF Init Error:", e); }
+    }
+
+    async function loadData(userId) {
+        try {
+            const res = await fetch(`${SCRIPT_URL}?userId=${userId}`);
+            const data = await res.json();
+            if (data.status === "found") {
+                document.getElementById("dispName").innerText = data.user.fullName.toUpperCase();
+                document.getElementById("dispCompany").innerText = "Company: " + data.user.company;
+                document.getElementById("dispEmail").innerText = "Email: " + data.user.email;
+                
+                document.getElementById("fullName").value = data.user.fullName;
+                document.getElementById("company").value = data.user.company;
+                document.getElementById("email").value = data.user.email;
+                document.getElementById("phone").value = data.user.phone;
+                
+                if (data.history && data.history.length > 0) {
+                    document.getElementById("historyList").innerHTML = data.history.map(h => `
+                        <div class="h-item">
+                            <div class="h-date">${h.date}</div>
+                            <div class="h-topic">${h.subject}</div>
+                            <div class="h-note">${h.note || '-'}</div>
+                        </div>
+                    `).join('');
+                }
+            }
+        } catch (e) { console.log("Data Load Error"); }
+    }
+
+    async function saveData() {
+        const sub = document.getElementById("subject").value;
+        const name = document.getElementById("fullName").value.trim();
+        const comp = document.getElementById("company").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const ph = document.getElementById("phone").value.trim();
+        const note = document.getElementById("userNote").value.trim();
+
+        // Validation
+        if (!sub) return alert("กรุณาเลือก SUBJECT / หัวข้อ");
+        if (!name || !email || !ph) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+        if (ph.length < 9) return alert("กรุณาตรวจสอบเบอร์โทรศัพท์");
+
+        document.getElementById("loading").style.display = "flex";
+        document.getElementById("btnSave").disabled = true;
+
+        try {
+            const profile = await liff.getProfile();
+            const payload = {
+                userId: profile.userId, 
+                lineName: profile.displayName,
+                fullName: name, 
+                company: comp || "-", 
+                email: email, 
+                phone: ph,
+                subject: sub, 
+                note: note
+            };
+
+            // Post to Google Sheets with mode: 'no-cors' to handle Web App redirection smoothly
+            await fetch(SCRIPT_URL, { 
+                method: "POST", 
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload) 
+            });
+
+            // Send LINE Message inside LINE Chat
+            if (liff.isInClient()) {
+                const ts = new Date().toLocaleString('th-TH');
+                await liff.sendMessages([{
+                    "type": "text",
+                    "text": `● NEW SERVICE REQUEST\n—\nSubject: ${sub}\nDetails: ${note || '-'}\n\nCustomer: ${name}\nCompany: ${comp || '-'}\nEmail: ${email}\nPhone: ${ph}\n—\n*Recorded at ${ts}*`
+                }]);
+            }
+
+            alert("SUCCESSFULLY SUBMITTED!");
+            location.reload();
+        } catch (e) { 
+            alert("Error: Connection Failed"); 
+        } finally {
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("btnSave").disabled = false;
+        }
+    }
+
+    window.onload = function() {
+        main();
+    };
+</script>
+</body>
+</html>
+
+```
