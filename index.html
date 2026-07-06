@@ -4,61 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THAI SINTO SERVICES</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
         :root { 
             --main: #0052cc; 
             --main-light: #00c6ff;
-            --bg: #0b111e; 
-            --card-bg: #1a2333;
+            --neon-blue: #00f0ff;
+            --bg: #060b13; 
+            --card-bg: rgba(26, 35, 51, 0.45);
             --text-light: #ffffff;
             --text-muted: #8fa0b5;
-            --input-bg: #242f41;
-            --border-color: #2e3d52;
+            --input-bg: rgba(15, 23, 38, 0.7);
+            --border-color: rgba(46, 61, 82, 0.6);
+            --glow: drop-shadow(0 0 12px rgba(0, 240, 255, 0.35));
         }
         
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; transition: all 0.25s ease-in-out; }
         
         body { 
             font-family: 'Kanit', sans-serif; 
-            background: var(--bg); 
+            background: radial-gradient(circle at 50% 0%, #0d1b3a 0%, var(--bg) 75%);
             margin: 0; 
-            padding: 20px 15px; 
+            padding: 25px 15px; 
             color: var(--text-light); 
             display: flex;
             justify-content: center;
+            min-height: 100vh;
         }
         
-        .container { width: 100%; max-width: 420px; margin: 0 auto; }
+        .container { width: 100%; max-width: 430px; margin: 0 auto; }
         
-        /* Premium Tech Card - ปรับโฉมใหม่ หรูหรากว่าเดิม */
+        /* Premium Tech Card V2 - Ultra Luxury Hologram Glow */
         .card-vip { 
-            background: linear-gradient(135deg, #001533 0%, #0040aa 60%, #00c6ff 100%); 
+            background: linear-gradient(135deg, #020b18 0%, #002d7a 50%, #0077ca 100%); 
             position: relative;
-            padding: 35px 25px; 
-            border-radius: 28px; 
-            box-shadow: 0 25px 50px rgba(0, 198, 255, 0.2), inset 0 1px 2px rgba(255,255,255,0.25);
-            margin-bottom: 30px; 
+            padding: 30px 22px; 
+            border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
+                        0 0 30px rgba(0, 198, 255, 0.15),
+                        inset 0 1px 1px rgba(255,255,255,0.3);
+            margin-bottom: 25px; 
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(0, 240, 255, 0.25);
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
         }
         
-        /* ลวดลาย Tech Pattern แบบจางๆ ด้านหลัง */
+        /* แผงวงจรดิจิทัลแบบจางๆ ด้านหลัง */
         .card-vip::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(45deg, transparent 45%, rgba(0, 198, 255, 0.08) 45%, rgba(0, 198, 255, 0.08) 55%, transparent 55%);
-            background-size: 20px 20px;
-            opacity: 0.6;
+            background-image: 
+                radial-gradient(rgba(0, 240, 255, 0.15) 1px, transparent 0),
+                linear-gradient(45deg, transparent 48%, rgba(0, 240, 255, 0.05) 50%, transparent 52%);
+            background-size: 16px 16px, 100% 100%;
+            opacity: 0.7;
             pointer-events: none;
         }
+
+        /* เอฟเฟกต์แสงวิ่งผ่านตัวการ์ด */
+        .card-vip::after {
+            content: "";
+            position: absolute;
+            top: -50%; left: -60%;
+            width: 30%; height: 200%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
+            transform: rotate(30deg);
+            animation: shine 4s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { left: -60%; }
+            35% { left: 140%; }
+            100% { left: 140%; }
+        }
         
-        /* ฝั่งข้อมูลตัวอักษร */
         .card-info {
             flex: 1;
             padding-right: 15px;
@@ -66,48 +89,46 @@
         }
         
         .card-label { 
-            font-size: 0.8rem; 
-            letter-spacing: 2.5px; 
+            font-size: 0.75rem; 
+            letter-spacing: 2px; 
             font-weight: 700; 
-            color: #00c6ff; 
+            color: var(--neon-blue); 
             display: inline-block; 
-            margin-bottom: 20px;
-            background: rgba(0, 198, 255, 0.1);
-            padding: 4px 14px;
-            border-radius: 30px;
-            border: 1px solid rgba(0, 198, 255, 0.2);
-            text-shadow: 0 0 10px rgba(0, 198, 255, 0.3);
+            margin-bottom: 14px;
+            background: rgba(0, 240, 255, 0.12);
+            padding: 4px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            filter: var(--glow);
         }
         
         .card-name { 
-            font-size: 2.2rem; 
+            font-size: 1.8rem; 
             font-weight: 700; 
-            margin: 0 0 15px 0; 
+            margin: 0 0 12px 0; 
             text-transform: uppercase; 
             color: #ffffff; 
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             line-height: 1.2;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
         
         .card-detail-group {
             border-top: 1px solid rgba(255, 255, 255, 0.15);
-            padding-top: 12px;
+            padding-top: 10px;
         }
         
         .card-detail { 
-            font-size: 0.95rem; 
-            margin-bottom: 6px; 
-            color: rgba(255, 255, 255, 0.85); 
-            font-weight: 400; 
-            letter-spacing: 0.5px;
+            font-size: 0.85rem; 
+            margin-bottom: 4px; 
+            color: rgba(255, 255, 255, 0.75); 
+            font-weight: 300;
         }
         .card-detail span {
-            color: #00c6ff;
+            color: var(--neon-blue);
             font-weight: 500;
         }
         
-        /* ปรับรูปโปรไฟล์ให้ใหญ่ขึ้น เด่นชัด และเป็นวงกลมพรีเมียม */
         .card-avatar-wrap {
             position: relative;
             z-index: 2;
@@ -115,34 +136,40 @@
         }
         
         #userImg { 
-            width: 180px; 
-            height: 180px; 
+            width: 105px; 
+            height: 105px; 
             border-radius: 50%; 
-            border: 3px solid #ffffff; 
-            box-shadow: 0 0 0 4px rgba(0, 198, 255, 0.4), 0 15px 25px rgba(0,0,0,0.4); 
+            border: 2px solid #ffffff; 
+            box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.3), 0 10px 20px rgba(0,0,0,0.5); 
             object-fit: cover; 
-            transition: transform 0.3s ease;
-        }
-        .card-vip:hover #userImg {
-            transform: scale(1.05);
         }
 
-        /* Form & Section Layout */
+        .card-vip:hover {
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(0, 240, 255, 0.3);
+            border-color: rgba(0, 240, 255, 0.6);
+        }
+        .card-vip:hover #userImg {
+            transform: scale(1.04) rotate(2deg);
+        }
+
+        /* Cyberpunk Neon Sections */
         .section { 
             background: var(--card-bg); 
-            border-radius: 24px; 
-            padding: 30px 24px; 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px; 
+            padding: 25px 20px; 
             margin-bottom: 25px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); 
             border: 1px solid var(--border-color);
         }
         
         h3 { 
-            margin: 0 0 25px 0; 
-            font-size: 1.3rem; 
-            font-weight: 700; 
+            margin: 0 0 20px 0; 
+            font-size: 1.15rem; 
+            font-weight: 600; 
             text-transform: uppercase; 
-            color: var(--text-light); 
+            color: #ffffff; 
             letter-spacing: 1px;
             display: flex;
             align-items: center;
@@ -150,102 +177,105 @@
         h3::before {
             content: "";
             display: inline-block;
-            width: 5px;
-            height: 20px;
-            background: linear-gradient(to bottom, var(--main-light), var(--main));
-            margin-right: 12px;
-            border-radius: 4px;
+            width: 4px;
+            height: 18px;
+            background: linear-gradient(to bottom, var(--neon-blue), var(--main));
+            margin-right: 10px;
+            border-radius: 2px;
+            box-shadow: 0 0 8px var(--neon-blue);
         }
         
         label { 
-            font-size: 0.85rem; 
+            font-size: 0.8rem; 
             font-weight: 500; 
-            margin-top: 20px; 
+            margin-top: 16px; 
             display: block; 
             text-transform: uppercase; 
             color: var(--text-muted); 
             letter-spacing: 0.5px;
         }
         
-        /* Modern Input, Textarea, Select */
+        /* Modern Cyber Inputs */
         input, textarea, select { 
             width: 100%; 
-            padding: 16px; 
-            margin-top: 8px; 
+            padding: 14px 16px; 
+            margin-top: 6px; 
             border: 1px solid var(--border-color); 
-            border-radius: 14px; 
+            border-radius: 12px; 
             font-family: 'Kanit'; 
-            font-size: 1rem; 
+            font-size: 0.95rem; 
             background-color: var(--input-bg);
             color: var(--text-light) !important; 
-            transition: all 0.3s ease;
         }
         
-        /* Placeholder styling */
-        input::placeholder, textarea::placeholder { color: #566981; }
+        input::placeholder, textarea::placeholder { color: #4b5d73; }
 
-        /* Custom Dropdown Arrow for Dark Tech Style */
         select { 
             appearance: none; 
             -webkit-appearance: none;
             background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%238fa0b5%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
             background-repeat: no-repeat; 
-            background-position: right 18px top 52%; 
-            background-size: 12px auto;
-            padding-right: 45px; 
+            background-position: right 16px top 50%; 
+            background-size: 11px auto;
+            padding-right: 40px; 
             cursor: pointer;
         }
 
         input:focus, select:focus, textarea:focus { 
             outline: none; 
-            border-color: var(--main-light); 
-            box-shadow: 0 0 10px rgba(0, 198, 255, 0.2);
-            background-color: var(--input-bg); 
+            border-color: var(--neon-blue); 
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+            background-color: rgba(20, 32, 54, 0.9); 
         }
         
-        /* Premium Glow Button */
+        /* Premium Glowing Pulse Button */
         .btn-submit { 
             width: 100%; 
-            padding: 18px; 
-            background: linear-gradient(90deg, var(--main) 0%, #0073e6 50%, var(--main-light) 100%); 
+            padding: 16px; 
+            background: linear-gradient(90deg, var(--main) 0%, #0066cc 50%, var(--main-light) 100%); 
             color: white; 
-            border: none; 
-            border-radius: 16px; 
-            font-weight: 700; 
-            margin-top: 30px; 
+            border: 1px solid rgba(0, 240, 255, 0.3); 
+            border-radius: 14px; 
+            font-weight: 600; 
+            margin-top: 25px; 
             cursor: pointer; 
-            font-size: 1.2rem; 
+            font-size: 1.1rem; 
             text-transform: uppercase; 
-            letter-spacing: 1px;
-            transition: all 0.3s ease; 
-            box-shadow: 0 8px 25px rgba(0, 82, 204, 0.4);
+            letter-spacing: 1.5px;
+            box-shadow: 0 8px 20px rgba(0, 82, 204, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+        .btn-submit:hover {
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+            border-color: var(--neon-blue);
+            transform: translateY(-1px);
         }
         .btn-submit:active { transform: scale(0.98); opacity: 0.9; }
-        .btn-submit:disabled { background: #4a5568; box-shadow: none; cursor: not-allowed; }
+        .btn-submit:disabled { background: #333f52; box-shadow: none; border-color: transparent; cursor: not-allowed; }
 
-        /* History List Modern Tech Style */
+        /* Tech History List */
         .h-item { 
-            border-bottom: 1px solid var(--border-color); 
-            padding: 18px 0; 
+            border-bottom: 1px solid rgba(46, 61, 82, 0.4); 
+            padding: 14px 0; 
         }
         .h-item:last-child { border-bottom: none; }
-        .h-date { color: var(--text-muted); font-size: 0.8rem; font-weight: 300; }
-        .h-topic { font-weight: 500; font-size: 1.05rem; margin: 6px 0; color: #ffffff; }
-        .h-note { color: var(--text-muted); font-size: 0.95rem; font-weight: 300; background: rgba(0,0,0,0.15); padding: 8px 12px; border-radius: 8px; margin-top: 5px; }
+        .h-date { color: var(--text-muted); font-size: 0.75rem; font-weight: 300; }
+        .h-topic { font-weight: 500; font-size: 0.95rem; margin: 4px 0; color: #ffffff; }
+        .h-note { color: var(--text-muted); font-size: 0.85rem; font-weight: 300; background: rgba(0, 0, 0, 0.2); padding: 8px 12px; border-radius: 8px; margin-top: 4px; border-left: 2px solid var(--main-light); }
 
         /* Sync Loading Overlay */
         .loading { 
             position: fixed; 
             inset: 0; 
-            background: rgba(11, 17, 30, 0.95); 
+            background: rgba(6, 11, 19, 0.95); 
             display: none; 
             align-items: center; 
             justify-content: center; 
             z-index: 1000; 
-            font-weight: 700; 
-            font-size: 1.4rem; 
-            color: var(--main-light); 
-            letter-spacing: 2px;
+            font-weight: 600; 
+            font-size: 1.2rem; 
+            color: var(--neon-blue); 
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
         }
     </style>
 </head>
@@ -304,7 +334,7 @@
     <div class="section">
         <h3>Recent Activity / ประวัติ</h3>
         <div id="historyList">
-            <p style="color:var(--text-muted); text-align:center; font-weight: 300;">No recent activity</p>
+            <p style="color:var(--text-muted); text-align:center; font-weight: 300; font-size: 0.9rem;">No recent activity</p>
         </div>
     </div>
 </div>
