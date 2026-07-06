@@ -32,68 +32,99 @@
         
         .container { width: 100%; max-width: 420px; margin: 0 auto; }
         
-        /* Premium Tech Card with Abstract Overlay */
+        /* Premium Tech Card - ปรับโฉมใหม่ หรูหรากว่าเดิม */
         .card-vip { 
-            background: linear-gradient(135deg, #001f4d 0%, #0052cc 50%, #00c6ff 100%); 
+            background: linear-gradient(135deg, #001533 0%, #0040aa 60%, #00c6ff 100%); 
             position: relative;
             padding: 35px 25px; 
-            border-radius: 24px; 
-            box-shadow: 0 20px 40px rgba(0, 198, 255, 0.15), inset 0 1px 1px rgba(255,255,255,0.2);
+            border-radius: 28px; 
+            box-shadow: 0 25px 50px rgba(0, 198, 255, 0.2), inset 0 1px 2px rgba(255,255,255,0.25);
             margin-bottom: 30px; 
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
         
-        /* Tech Pattern Overlay using CSS */
+        /* ลวดลาย Tech Pattern แบบจางๆ ด้านหลัง */
         .card-vip::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(30deg, transparent 40%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0.05) 50%, transparent 50%),
-                        linear-gradient(115deg, transparent 60%, rgba(255,255,255,0.08) 60%, rgba(255,255,255,0.08) 70%, transparent 70%);
-            opacity: 0.8;
+            background: linear-gradient(45deg, transparent 45%, rgba(0, 198, 255, 0.08) 45%, rgba(0, 198, 255, 0.08) 55%, transparent 55%);
+            background-size: 20px 20px;
+            opacity: 0.6;
             pointer-events: none;
         }
         
+        /* ฝั่งข้อมูลตัวอักษร */
+        .card-info {
+            flex: 1;
+            padding-right: 15px;
+            z-index: 2;
+        }
+        
         .card-label { 
-            font-size: 0.85rem; 
-            letter-spacing: 3px; 
-            font-weight: 500; 
-            color: rgba(255, 255, 255, 0.8); 
+            font-size: 0.8rem; 
+            letter-spacing: 2.5px; 
+            font-weight: 700; 
+            color: #00c6ff; 
             display: inline-block; 
             margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 4px 12px;
+            background: rgba(0, 198, 255, 0.1);
+            padding: 4px 14px;
             border-radius: 30px;
-            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0, 198, 255, 0.2);
+            text-shadow: 0 0 10px rgba(0, 198, 255, 0.3);
         }
         
         .card-name { 
-            font-size: 2rem; 
+            font-size: 2.2rem; 
             font-weight: 700; 
-            margin: 0 0 12px 0; 
+            margin: 0 0 15px 0; 
             text-transform: uppercase; 
             color: #ffffff; 
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .card-detail-group {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 12px;
         }
         
         .card-detail { 
             font-size: 0.95rem; 
-            margin-top: 4px; 
-            color: rgba(255, 255, 255, 0.75); 
-            font-weight: 300; 
+            margin-bottom: 6px; 
+            color: rgba(255, 255, 255, 0.85); 
+            font-weight: 400; 
+            letter-spacing: 0.5px;
+        }
+        .card-detail span {
+            color: #00c6ff;
+            font-weight: 500;
+        }
+        
+        /* ปรับรูปโปรไฟล์ให้ใหญ่ขึ้น เด่นชัด และเป็นวงกลมพรีเมียม */
+        .card-avatar-wrap {
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
         }
         
         #userImg { 
-            position: absolute; 
-            right: 25px; 
-            bottom: 25px; 
-            width: 85px; 
-            height: 85px; 
-            border-radius: 18px; 
-            border: 2px solid rgba(255, 255, 255, 0.5); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3); 
+            width: 110px; 
+            height: 110px; 
+            border-radius: 50%; 
+            border: 3px solid #ffffff; 
+            box-shadow: 0 0 0 4px rgba(0, 198, 255, 0.4), 0 15px 25px rgba(0,0,0,0.4); 
             object-fit: cover; 
+            transition: transform 0.3s ease;
+        }
+        .card-vip:hover #userImg {
+            transform: scale(1.05);
         }
 
         /* Form & Section Layout */
@@ -223,13 +254,18 @@
 <div id="loading" class="loading">SYNCING DATA...</div>
 
 <div class="container">
-    <!-- Premium Card - Metallic Cyber Blue Gradient -->
     <div class="card-vip">
-        <div class="card-label">THAI SINTO SERVICES</div>
-        <div id="dispName" class="card-name">GUEST</div>
-        <div id="dispCompany" class="card-detail">Company: -</div>
-        <div id="dispEmail" class="card-detail">Email: -</div>
-        <img id="userImg" src="https://via.placeholder.com/110">
+        <div class="card-info">
+            <div class="card-label">THAI SINTO SERVICES</div>
+            <div id="dispName" class="card-name">GUEST</div>
+            <div class="card-detail-group">
+                <div id="dispCompany" class="card-detail">Company: <span>-</span></div>
+                <div id="dispEmail" class="card-detail">Email: <span>-</span></div>
+            </div>
+        </div>
+        <div class="card-avatar-wrap">
+            <img id="userImg" src="https://via.placeholder.com/110">
+        </div>
     </div>
 
     <div class="section">
@@ -276,7 +312,7 @@
 <script>
     // Configuration
     const LIFF_ID = "2008820291-s6WNZ5xr"; 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyuepcPmi9y2l3W087S4puLzlLtp8fRJix-g7Z2xyoCn4HgPF7x-tOjLbKYrSgFipIw/exec"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz3iff7y7yasoQjaUHTJbdQalY827KKVnDBmA0ZlTjBsciBlCbub7IzysXSZAiK9xYD/exec"; 
 
     async function main() {
         try {
@@ -297,8 +333,8 @@
             const data = await res.json();
             if (data.status === "found") {
                 document.getElementById("dispName").innerText = data.user.fullName.toUpperCase();
-                document.getElementById("dispCompany").innerText = "Company: " + data.user.company;
-                document.getElementById("dispEmail").innerText = "Email: " + data.user.email;
+                document.getElementById("dispCompany").innerHTML = "Company: <span>" + data.user.company + "</span>";
+                document.getElementById("dispEmail").innerHTML = "Email: <span>" + data.user.email + "</span>";
                 
                 document.getElementById("fullName").value = data.user.fullName;
                 document.getElementById("company").value = data.user.company;
