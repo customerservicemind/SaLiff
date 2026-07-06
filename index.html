@@ -11,6 +11,7 @@
         body { font-family: 'Kanit', sans-serif; background: #f4f7f6; margin: 0; padding: 15px; color: var(--text); }
         .container { width: 100%; max-width: 420px; margin: 0 auto; }
         
+        /* Premium Card - Metallic Silver */
         .card-vip { 
             background: linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%); 
             color: #ffffff; 
@@ -24,17 +25,20 @@
         
         #userImg { position: absolute; right: 20px; bottom: -20px; width: 110px; height: 110px; border-radius: 20px; border: 4px solid #fff; background: #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.15); object-fit: cover; }
 
+        /* Form Layout */
         .section { background: white; border-radius: 25px; padding: 30px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         h3 { margin: 0 0 20px 0; font-size: 1.6rem; font-weight: 700; text-transform: uppercase; border-left: 8px solid var(--main); padding-left: 15px; color: #000; }
         
         label { font-size: 1rem; font-weight: 700; margin-top: 15px; display: block; text-transform: uppercase; color: #333; }
         
+        /* Input & Dropdown Styling */
         input, textarea, select { 
             width: 100%; padding: 16px; margin-top: 8px; border: 2px solid #eee; border-radius: 12px; 
             box-sizing: border-box; font-family: 'Kanit'; font-size: 1.1rem; background-color: #fff;
             color: #000000 !important; transition: 0.3s;
         }
         
+        /* Custom Dropdown Arrow */
         select { 
             appearance: none; -webkit-appearance: none;
             background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
@@ -48,8 +52,8 @@
         .btn-submit:active { transform: scale(0.96); opacity: 0.8; }
         .btn-submit:disabled { background: #999; }
 
+        /* History List */
         .h-item { border-bottom: 2px solid #f0f0f0; padding: 15px 0; }
-        .h-item:last-child { border-bottom: none; }
         .h-date { color: #888; font-size: 0.85rem; }
         .h-topic { font-weight: 700; font-size: 1.1rem; margin: 5px 0; color: #000; }
         .h-note { color: #555; font-size: 1rem; }
@@ -79,10 +83,6 @@
             <option value="Machine Inquiry">Machine Inquiry สนใจสอบถามข้อมูลเครื่องจักร</option>
             <option value="Preventive Maintenance (PM) Check">Preventive Maintenance (PM) Check สอบถามตรวจเช็คสภาพเครื่องจักร</option>
             <option value="Spare Parts Quotation">Spare Parts Quotation สอบถามขอใบเสนอราคา</option>
-            <option value="Dry Ice Blasting Service">DRY ICE BLASTING SERVICE – บริการทำความสะอาดไม่ทำลายพื้นผิว ไร้สารเคมี</option>
-            <option value="Dust Check System">DUST CHECK SYSTEM – บริการระบบตรวจจับสิ่งผิดปกติป้องกันอัคคีภัยในระบบดักฝุ่น</option>
-            <option value="Dust Detection App">DUST DETECTION APP – บริการกล้องอินฟราเรดตรวจจับการสะสมของฝุ่นในท่อ</option>
-            <option value="Remote Monitoring System">Remote Monitoring System – บริการระบบติดตามตรวจสอบสถานะระยะไกลผ่านเครือข่าย IoT</option>
         </select>
         
         <label>Full Name / ชื่อ-นามสกุล</label>
@@ -112,10 +112,9 @@
 </div>
 
 <script>
-    // Configuration ใส่ลิงก์เว็บแอปของคุณที่นี่
+    // Configuration
     const LIFF_ID = "2008820291-s6WNZ5xr"; 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyHW-CVVxrOx2OUDw-rd1_-ullIuLlcObp4m2E2fDtj9IkRV-jKNlO4FaWx1HOnkkav/exec"; 
-    let currentUserId = "";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxk_Ym-PFjCkAPZlDAyOIJNy3uuZpebfbBCY9WGz4lEgQWvqCyUPXQUttmwL5CDu9ag/exec"; 
 
     async function main() {
         try {
@@ -124,13 +123,10 @@
                 liff.login();
             } else {
                 const profile = await liff.getProfile();
-                currentUserId = profile.userId;
-                document.getElementById("userImg").src = profile.pictureUrl || "https://via.placeholder.com/110";
+                document.getElementById("userImg").src = profile.pictureUrl;
                 loadData(profile.userId);
             }
-        } catch (e) { 
-            console.error("LIFF Init Error:", e); 
-        }
+        } catch (e) { console.error("LIFF Init Error:", e); }
     }
 
     async function loadData(userId) {
@@ -138,88 +134,82 @@
             const res = await fetch(`${SCRIPT_URL}?userId=${userId}`);
             const data = await res.json();
             if (data.status === "found") {
-                if (data.user.fullName) document.getElementById("dispName").innerText = data.user.fullName.toUpperCase();
-                if (data.user.company) document.getElementById("dispCompany").innerText = "Company: " + data.user.company;
-                if (data.user.email) document.getElementById("dispEmail").innerText = "Email: " + data.user.email;
+                document.getElementById("dispName").innerText = data.user.fullName.toUpperCase();
+                document.getElementById("dispCompany").innerText = "Company: " + data.user.company;
+                document.getElementById("dispEmail").innerText = "Email: " + data.user.email;
                 
-                document.getElementById("fullName").value = data.user.fullName || "";
-                document.getElementById("company").value = data.user.company || "";
-                document.getElementById("email").value = data.user.email || "";
-                document.getElementById("phone").value = data.user.phone || "";
+                document.getElementById("fullName").value = data.user.fullName;
+                document.getElementById("company").value = data.user.company;
+                document.getElementById("email").value = data.user.email;
+                document.getElementById("phone").value = data.user.phone;
                 
                 if (data.history && data.history.length > 0) {
                     document.getElementById("historyList").innerHTML = data.history.map(h => `
                         <div class="h-item">
-                            <div class="h-date">${h.date || ''}</div>
-                            <div class="h-topic">${h.subject || ''}</div>
-                            <div class="h-note">${h.details || ''}</div>
+                            <div class="h-date">${h.date}</div>
+                            <div class="h-topic">${h.subject}</div>
+                            <div class="h-note">${h.note || '-'}</div>
                         </div>
                     `).join('');
                 }
             }
-        } catch (e) {
-            console.error("Error loading profile details:", e);
-        }
+        } catch (e) { console.log("Data Load Error"); }
     }
 
     async function saveData() {
-        const subject = document.getElementById("subject").value;
-        const fullName = document.getElementById("fullName").value.trim();
-        const company = document.getElementById("company").value.trim();
+        const sub = document.getElementById("subject").value;
+        const name = document.getElementById("fullName").value.trim();
+        const comp = document.getElementById("company").value.trim();
         const email = document.getElementById("email").value.trim();
-        const phone = document.getElementById("phone").value.trim();
-        const userNote = document.getElementById("userNote").value.trim();
+        const ph = document.getElementById("phone").value.trim();
+        const note = document.getElementById("userNote").value.trim();
 
-        if (!subject) return alert("Please select a subject / กรุณาเลือกหัวข้อบริการ");
-        if (!fullName) return alert("Please enter your full name / กรุณากรอกชื่อ-นามสกุล");
-        if (!company) return alert("Please enter your company / กรุณากรอกชื่อบริษัท");
-        if (!email) return alert("Please enter your email / กรุณากรอกอีเมล");
-        if (!phone || phone.length < 9) return alert("Please enter a valid phone number / กรุณากรอกเบอร์โทรศัพท์ที่ถูกต้อง");
+        // Validation
+        if (!sub) return alert("กรุณาเลือก SUBJECT / หัวข้อ");
+        if (!name || !email || !ph) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+        if (ph.length < 9) return alert("กรุณาตรวจสอบเบอร์โทรศัพท์");
 
-        const loading = document.getElementById("loading");
-        const btnSave = document.getElementById("btnSave");
-        
-        loading.style.display = "flex";
-        btnSave.disabled = true;
-
-        // เปลี่ยนรูปแบบการส่งเป็นแบบ Form เพื่อตัดปัญหาเรื่อง CORS ของ Google GAS
-        const formData = new URLSearchParams();
-        formData.append("userId", currentUserId);
-        formData.append("subject", subject);
-        formData.append("fullName", fullName);
-        formData.append("company", company);
-        formData.append("email", email);
-        formData.append("phone", phone);
-        formData.append("details", userNote);
+        document.getElementById("loading").style.display = "flex";
+        document.getElementById("btnSave").disabled = true;
 
         try {
-            // ใช้เทคนิคส่งผ่าน redirect เพื่อให้อ่านผลลัพธ์ของ GAS ได้
-            const response = await fetch(SCRIPT_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: formData.toString()
-            });
+            const profile = await liff.getProfile();
+            const payload = {
+                userId: profile.userId, 
+                lineName: profile.displayName,
+                fullName: name, 
+                company: comp || "-", 
+                email: email, 
+                phone: ph,
+                subject: sub, 
+                note: note
+            };
 
-            // อัปเดตข้อมูลบนหน้าบัตร VIP ทันที
-            document.getElementById("dispName").innerText = fullName.toUpperCase();
-            document.getElementById("dispCompany").innerText = "Company: " + company;
-            document.getElementById("dispEmail").innerText = "Email: " + email;
+            // Post to Google Sheets
+            await fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) });
 
-            alert("Request submitted successfully! / ส่งข้อมูลคำขอเรียบร้อยแล้ว");
-            
+            // Send LINE Message
             if (liff.isInClient()) {
-                liff.closeWindow();
+                const ts = new Date().toLocaleString('th-TH');
+                await liff.sendMessages([{
+                    "type": "text",
+                    "text": `● NEW SERVICE REQUEST\n—\nSubject: ${sub}\nDetails: ${note || '-'}\n\nCustomer: ${name}\nCompany: ${comp || '-'}\nEmail: ${email}\nPhone: ${ph}\n—\n*Recorded at ${ts}*`
+                }]);
             }
-        } catch (error) {
-            console.error("Submission Error:", error);
-            alert("Something went wrong. Please try again. / เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");
+
+            alert("SUCCESSFULLY SUBMITTED!");
+            location.reload();
+        } catch (e) { 
+            alert("Error: Connection Failed"); 
         } finally {
-            loading.style.display = "none";
-            btnSave.disabled = false;
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("btnSave").disabled = false;
         }
     }
 
-    main();
+    window.onload = function() {
+        main();
+    };
 </script>
 </body>
 </html>
