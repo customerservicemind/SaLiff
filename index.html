@@ -191,4 +191,184 @@
         /* History List */
         .h-item { 
             border-bottom: 1px solid rgba(255,255,255,0.05); 
-            padding: 15px 0
+            padding: 15px 0; 
+        }
+        .h-item:last-child { border-bottom: none; }
+        .h-date { color: var(--main); font-size: 0.8rem; font-family: 'Orbitron', sans-serif; }
+        .h-topic { font-weight: 600; font-size: 1.05rem; margin: 5px 0; color: #fff; }
+        .h-note { color: var(--text-muted); font-size: 0.95rem; font-weight: 300; }
+
+        /* Cyber Loading */
+        .loading { 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(10, 15, 29, 0.95); 
+            display: none; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 1000; 
+            font-weight: 700; 
+            font-size: 1.4rem; 
+            color: var(--main); 
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px var(--main);
+        }
+    </style>
+</head>
+<body>
+
+<div id="loading" class="loading">SYNCING DATA...</div>
+
+<div class="container">
+    <div class="card-vip">
+        <div class="card-label">THAI SINTO SERVICES</div>
+        <div id="dispName" class="card-name">GUEST</div>
+        <div id="dispCompany" class="card-detail">Company: -</div>
+        <div id="dispEmail" class="card-detail">Email: -</div>
+        <img id="userImg" src="https://via.placeholder.com/110">
+    </div>
+
+    <div class="section">
+        <h3>Request / แจ้งบริการ</h3>
+        
+        <label>Subject / หัวข้อ</label>
+        <select id="subject">
+            <option value="" disabled selected>-- เลือกหัวข้อบริการ --</option>
+            <option value="Machine Inquiry">Machine Inquiry สนใจสอบถามข้อมูลเครื่องจักร</option>
+            <option value="Preventive Maintenance (PM) Check">Preventive Maintenance (PM) Check สอบถามตรวจเช็คสภาพเครื่องจักร</option>
+            <option value="Spare Parts Quotation">Spare Parts Quotation สอบถามขอใบเสนอราคา</option>
+            <option value="Dry Ice Blasting Service บริการทำความสะอาด">Dry Ice Blasting Service บริการทำความสะอาด</option>
+            <option value="Dust Check System บริการตรวจสอบระบบดักฝุ่น">Dust Check System บริการตรวจสอบระบบดักฝุ่น</option>
+            <option value="Dust Detection App บริการตรวจจับการสะสมของฝุ่น">Dust Detection App บริการตรวจจับการสะสมของฝุ่น</option>
+            <option value="Remote Monitoring System บริการติดตามสถานะเครื่องจักร">Remote Monitoring System บริการติดตามสถานะเครื่องจักร</option>
+        </select>
+        
+        <label>Full Name / ชื่อ-นามสกุล</label>
+        <input type="text" id="fullName" placeholder="Your full name">
+        
+        <label>Company / บริษัท</label>
+        <input type="text" id="company" placeholder="Company name">
+
+        <label>Email / อีเมล</label>
+        <input type="email" id="email" placeholder="example@email.com">
+        
+        <label>Phone / เบอร์โทร</label>
+        <input type="tel" id="phone" placeholder="0XXXXXXXXX" maxlength="10">
+        
+        <label>Details / รายละเอียด</label>
+        <textarea id="userNote" rows="3" placeholder="Explain your request..."></textarea>
+        
+        <button id="btnSave" class="btn-submit" onclick="saveData()">SUBMIT REQUEST</button>
+    </div>
+
+    <div class="section">
+        <h3>Recent Activity / ประวัติ</h3>
+        <div id="historyList">
+            <p style="color: var(--text-muted); text-align:center; font-weight: 300;">No recent activity</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Configuration
+    const LIFF_ID = "2008820291-s6WNZ5xr"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz3iff7y7yasoQjaUHTJbdQalY827KKVnDBmA0ZlTjBsciBlCbub7IzysXSZAiK9xYD/exec"; 
+
+    async function main() {
+        try {
+            await liff.init({ liffId: LIFF_ID });
+            if (!liff.isLoggedIn()) {
+                liff.login();
+            } else {
+                const profile = await liff.getProfile();
+                document.getElementById("userImg").src = profile.pictureUrl;
+                loadData(profile.userId);
+            }
+        } catch (e) { console.error("LIFF Init Error:", e); }
+    }
+
+    async function loadData(userId) {
+        try {
+            const res = await fetch(`${SCRIPT_URL}?userId=${userId}`);
+            const data = await res.json();
+            if (data.status === "found") {
+                document.getElementById("dispName").innerText = data.user.fullName.toUpperCase();
+                document.getElementById("dispCompany").innerText = "Company: " + data.user.company;
+                document.getElementById("dispEmail").innerText = "Email: " + data.user.email;
+                
+                document.getElementById("fullName").value = data.user.fullName;
+                document.getElementById("company").value = data.user.company;
+                document.getElementById("email").value = data.user.email;
+                document.getElementById("phone").value = data.user.phone;
+                
+                if (data.history && data.history.length > 0) {
+                    document.getElementById("historyList").innerHTML = data.history.map(h => `
+                        <div class="h-item">
+                            <div class="h-date">${h.date}</div>
+                            <div class="h-topic">${h.subject}</div>
+                            <div class="h-note">${h.note || '-'}</div>
+                        </div>
+                    `).join('');
+                }
+            }
+        } catch (e) { console.log("Data Load Error"); }
+    }
+
+    async function saveData() {
+        const sub = document.getElementById("subject").value;
+        const name = document.getElementById("fullName").value.trim();
+        const comp = document.getElementById("company").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const ph = document.getElementById("phone").value.trim();
+        const note = document.getElementById("userNote").value.trim();
+
+        // Validation
+        if (!sub) return alert("กรุณาเลือก SUBJECT / หัวข้อ");
+        if (!name || !email || !ph) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+        if (ph.length < 9) return alert("กรุณาตรวจสอบเบอร์โทรศัพท์");
+
+        document.getElementById("loading").style.display = "flex";
+        document.getElementById("btnSave").disabled = true;
+
+        try {
+            const profile = await liff.getProfile();
+            const payload = {
+                userId: profile.userId, 
+                lineName: profile.displayName,
+                fullName: name, 
+                company: comp || "-", 
+                email: email, 
+                phone: ph,
+                subject: sub, 
+                note: note
+            };
+
+            // Post to Google Sheets
+            await fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) });
+
+            // Send LINE Message
+            if (liff.isInClient()) {
+                const ts = new Date().toLocaleString('th-TH');
+                await liff.sendMessages([{
+                    "type": "text",
+                    "text": `● NEW SERVICE REQUEST\n—\nSubject: ${sub}\nDetails: ${note || '-'}\n\nCustomer: ${name}\nCompany: ${comp || '-'}\nEmail: ${email}\nPhone: ${ph}\n—\n*Recorded at ${ts}*`
+                }]);
+            }
+
+            alert("SUCCESSFULLY SUBMITTED!");
+            location.reload();
+        } catch (e) { 
+            alert("Error: Connection Failed"); 
+        } finally {
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("btnSave").disabled = false;
+        }
+    }
+
+    window.onload = function() {
+        main();
+    };
+</script>
+</body>
+</html>
