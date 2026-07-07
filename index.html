@@ -38,11 +38,11 @@
         .container { width: 100%; max-width: 430px; margin: 0 auto; }
         
         /* ==========================================================================
-           NEW SILVER TECH VIP CARD (MODERN SILVER LINE PATTERN & SCI-FI)
+           NEW ULTRA PREMIUM TECH VIP CARD (MODERN BLUE LINE PATTERN)
            ========================================================================== */
         .card-vip { 
-            /* Silver Tech Gradient Background */
-            background: linear-gradient(135deg, rgba(200, 200, 200, 0.85) 0%, rgba(100, 100, 100, 0.4) 100%); 
+            /* พื้นหลังไล่เฉดสีกรมท่าลึกตัดด้วยกระจกใสสะท้อนแสงฟ้า */
+            background: linear-gradient(135deg, rgba(6, 19, 44, 0.85) 0%, rgba(0, 82, 204, 0.4) 100%); 
             backdrop-filter: blur(35px);
             -webkit-backdrop-filter: blur(35px);
             
@@ -50,35 +50,35 @@
             padding: 35px 24px; 
             border-radius: 24px; 
             
-            /* Glossy and Glow Dimensions */
+            /* มิติเรืองแสงและเงาขอบแบบหรูหรา */
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 
                         inset 0 1px 1px rgba(255, 255, 255, 0.4),
-                        0 0 30px rgba(200, 200, 200, 0.25);
+                        0 0 30px rgba(0, 198, 255, 0.25);
                         
             margin-bottom: 25px; 
             overflow: hidden; 
-            border: 1px solid rgba(200, 200, 200, 0.4); 
+            border: 1px solid rgba(0, 198, 255, 0.4); 
             display: flex;
             flex-direction: column;
             gap: 24px;
         }
 
-        /* Sci-Fi Modern Cutting Pattern (Silver/Gray Lines) */
+        /* ลวดลายโมเดิร์นคัตติ้ง (Abstract Diagonal Tech Lines) สีฟ้าสว่าง */
         .card-vip::before {
             content: "";
             position: absolute;
             inset: 0;
             background: 
-                linear-gradient(115deg, transparent 70%, rgba(200, 200, 200, 0.1) 70%, rgba(200, 200, 200, 0.1) 73%, transparent 73%),
-                linear-gradient(115deg, transparent 40%, rgba(150, 150, 150, 0.08) 40%, rgba(150, 150, 150, 0.08) 48%, transparent 48%),
-                linear-gradient(115deg, transparent 45%, rgba(200, 200, 200, 0.15) 45%, rgba(200, 200, 200, 0.15) 46%, transparent 46%),
-                linear-gradient(115deg, transparent 20%, rgba(100, 100, 100, 0.08) 20%, rgba(100, 100, 100, 0.08) 24%, transparent 24%);
+                linear-gradient(115deg, transparent 70%, rgba(0, 240, 255, 0.08) 70%, rgba(0, 240, 255, 0.08) 73%, transparent 73%),
+                linear-gradient(115deg, transparent 40%, rgba(0, 198, 255, 0.05) 40%, rgba(0, 198, 255, 0.05) 48%, transparent 48%),
+                linear-gradient(115deg, transparent 45%, rgba(0, 240, 255, 0.12) 45%, rgba(0, 240, 255, 0.12) 46%, transparent 46%),
+                linear-gradient(115deg, transparent 20%, rgba(0, 136, 255, 0.06) 20%, rgba(0, 136, 255, 0.06) 24%, transparent 24%);
             opacity: 0.9;
             z-index: 1;
             pointer-events: none;
         }
 
-        /* Sci-Fi Hologram Corner Lighting */
+        /* เพิ่มเหลี่ยมมุมแสงโฮโลแกรมที่มุมการ์ดขวาบนและซ้ายล่าง */
         .card-vip::after {
             content: "";
             position: absolute;
@@ -86,7 +86,7 @@
             right: -20%;
             width: 160px;
             height: 160px;
-            background: radial-gradient(circle, rgba(200, 200, 200, 0.3) 0%, transparent 75%);
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, transparent 75%);
             z-index: 1;
             pointer-events: none;
         }
@@ -103,7 +103,7 @@
             padding-right: 15px;
         }
         
-        /* Modern Minimalist Silver Logo Tag */
+        /* ป้ายโลโก้ดีไซน์มินิมอลโมเดิร์นขอบขาวกึ่งโปร่งแสง */
         .card-label { 
             font-size: 0.7rem; 
             letter-spacing: 2px; 
@@ -119,13 +119,13 @@
             backdrop-filter: blur(5px);
         }
         
-        /* High-Definition Metallic White/Gray Text for the Name */
+        /* ชื่อสมาชิกสีขาวบริสุทธิ์ไล่เฉดไปสีขาวเงาหรูคมจัด */
         .card-name { 
             font-size: 1.8rem; 
             font-weight: 700; 
             margin: 0; 
             text-transform: uppercase; 
-            color: #f0f0f0; 
+            color: #ffffff; 
             text-align: left;
             letter-spacing: 0.5px;
             line-height: 1.2;
@@ -145,10 +145,10 @@
             object-fit: cover; 
             background: #060b13;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5),
-                        0 0 15px rgba(200, 200, 200, 0.3);
+                        0 0 15px rgba(0, 198, 255, 0.3);
         }
 
-        /* Section with Silver/Gray Detail Elements and Clear White Text */
+        /* ส่วนแสดงรายละเอียดตัวอักษรสีขาวสว่างชัดเจน */
         .card-detail-group {
             z-index: 2;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
@@ -167,23 +167,23 @@
             align-items: center;
         }
         .card-detail span {
-            color: #ffffff; 
+            color: #ffffff; /* ปรับเป็นสีขาวสว่างเต็มที่เพื่อเน้นความพรีเมียม */
             font-weight: 500;
             margin-left: 8px;
             text-shadow: 0 1px 4px rgba(0,0,0,0.4);
         }
         
-        /* Sci-Fi Interactive Hover Effect */
+        /* Interactive Hover */
         .card-vip:hover {
-            border-color: rgba(200, 200, 200, 0.6);
+            border-color: var(--neon-blue);
             box-shadow: 0 35px 70px rgba(0, 0, 0, 0.7), 
                         inset 0 1px 1px rgba(255, 255, 255, 0.6),
-                        0 0 40px rgba(200, 200, 200, 0.4);
+                        0 0 40px rgba(0, 240, 255, 0.35);
         }
         .card-vip:hover #userImg {
             transform: scale(1.03);
-            border-color: #f0f0f0;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(200, 200, 200, 0.5);
+            border-color: var(--neon-blue);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 240, 255, 0.5);
         }
 
         /* ==========================================================================
@@ -376,7 +376,7 @@
 
 <script>
     const LIFF_ID = "2008820291-s6WNZ5xr"; 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxewMfx_HrDkIXSIo2ZSs80kS0gyzUSa7QHYCqtzdqg3-wY7aV0Iwru_qXAPKNMLkY9/exec"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyH8P9avLg1nBDA7Mhp_1L_vDtibfeIFCrBmQmujyJ1c-4ETBj_USZ0rJnPIX71MGw/exec"; 
 
     async function main() {
         try {
