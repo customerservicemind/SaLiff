@@ -24,7 +24,8 @@
         
         body { 
             font-family: 'Kanit', sans-serif; 
-            background: radial-gradient(circle at 50% 0%, #0d1b3a 0%, var(--bg) 75%);
+            /* ปรับ Background เป็นสไตล์ Deep Navy Blue Gradient ตามบรีฟ */
+            background: radial-gradient(circle at 50% 0%, #12377F 0%, #091C48 100%);
             margin: 0; 
             padding: 25px 15px; 
             color: var(--text-light); 
@@ -35,124 +36,126 @@
         
         .container { width: 100%; max-width: 430px; margin: 0 auto; }
         
-        /* Premium Tech Card V2 - Ultra Luxury Hologram Glow */
+        /* ==========================================================================
+           NEW PREMIUM GLASSMORPHISM VIP CARD V2
+           ========================================================================== */
         .card-vip { 
-            background: linear-gradient(135deg, #020b18 0%, #002d7a 50%, #0077ca 100%); 
+            /* กระจกฝ้าความโปร่งแสง 8-10% พร้อม Backdrop Blur 24px */
+            background: rgba(255, 255, 255, 0.08); 
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            
             position: relative;
-            padding: 30px 22px; 
-            border-radius: 24px; 
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
-                        0 0 30px rgba(0, 198, 255, 0.15),
-                        inset 0 1px 1px rgba(255,255,255,0.3);
+            padding: 32px 24px; 
+            border-radius: 32px; /* ขอบมนขนาดใหญ่ 32px */
+            
+            /* เงาแบบมัลติเลเยอร์สมจริงและแสงสะท้อน */
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 
+                        inset 0 1px 2px rgba(255, 255, 255, 0.25),
+                        inset 0 -1px 1px rgba(0, 0, 0, 0.2);
+                        
             margin-bottom: 25px; 
-            overflow: hidden;
-            border: 1px solid rgba(0, 240, 255, 0.25);
+            overflow: visible; /* ปรับเป็น visible เพื่อให้แสงนีออนขวาฟุ้งกระจายออกนอกการ์ดได้ */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* ขอบขาวกึ่งโปร่งแสง 1px */
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
-        /* แผงวงจรดิจิทัลแบบจางๆ ด้านหลัง */
-        .card-vip::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: 
-                radial-gradient(rgba(0, 240, 255, 0.15) 1px, transparent 0),
-                linear-gradient(45deg, transparent 48%, rgba(0, 240, 255, 0.05) 50%, transparent 52%);
-            background-size: 16px 16px, 100% 100%;
-            opacity: 0.7;
-            pointer-events: none;
-        }
 
-        /* เอฟเฟกต์แสงวิ่งผ่านตัวการ์ด */
-        .card-vip::after {
-            content: "";
-            position: absolute;
-            top: -50%; left: -60%;
-            width: 30%; height: 200%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
-            transform: rotate(30deg);
-            animation: shine 4s infinite linear;
-        }
-
-        @keyframes shine {
-            0% { left: -60%; }
-            35% { left: 140%; }
-            100% { left: 140%; }
-        }
-        
         .card-info {
             flex: 1;
             padding-right: 15px;
             z-index: 2;
         }
         
+        /* ปรับเป็นเม็ดยา Pill-shaped พื้นหลังน้ำเงินเข้ม ตัวอักษรขาว */
         .card-label { 
             font-size: 0.75rem; 
             letter-spacing: 2px; 
-            font-weight: 700; 
-            color: var(--neon-blue); 
+            font-weight: 600; 
+            color: #ffffff; 
             display: inline-block; 
-            margin-bottom: 14px;
-            background: rgba(0, 240, 255, 0.12);
-            padding: 4px 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            filter: var(--glow);
+            margin-bottom: 16px;
+            background: #091C48;
+            padding: 5px 14px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
+        /* Modern Sans-serif Headline อักษรหนาชิดซ้าย */
         .card-name { 
             font-size: 1.8rem; 
             font-weight: 700; 
-            margin: 0 0 12px 0; 
+            margin: 0 0 14px 0; 
             text-transform: uppercase; 
             color: #ffffff; 
+            text-align: left;
             letter-spacing: 0.5px;
             line-height: 1.2;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
         
+        /* เส้นแบ่งตกแต่งแบบไล่เฉดสี Gradient Divider */
         .card-detail-group {
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            padding-top: 10px;
+            border-top: 2px solid transparent;
+            border-image: linear-gradient(to right, var(--neon-blue), var(--main), transparent) 1;
+            padding-top: 14px;
         }
         
+        /* ตัวหนังสือรายละเอียดเว้นระยะสวยงาม (Generous Spacing) */
         .card-detail { 
             font-size: 0.85rem; 
-            margin-bottom: 4px; 
-            color: rgba(255, 255, 255, 0.75); 
+            margin-bottom: 8px; 
+            color: rgba(255, 255, 255, 0.8); 
             font-weight: 300;
+            letter-spacing: 0.5px;
         }
+        .card-detail:last-child { margin-bottom: 0; }
         .card-detail span {
-            color: var(--neon-blue);
+            color: #ffffff;
             font-weight: 500;
         }
         
+        /* ส่วนจัดวางกล่องทางขวาแบบลอยและเรืองแสง */
         .card-avatar-wrap {
             position: relative;
-            z-index: 2;
+            z-index: 3;
             flex-shrink: 0;
         }
         
+        /* ปรับรูปภาพ/กรอบขวาเป็น สี่เหลี่ยมขอบมน (Rounded Square) และทำแสงนีออน Cyan Glow ซ้อนเลเยอร์ */
         #userImg { 
-            width: 105px; 
-            height: 105px; 
-            border-radius: 50%; 
-            border: 2px solid #ffffff; 
-            box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.3), 0 10px 20px rgba(0,0,0,0.5); 
+            width: 95px; 
+            height: 95px; 
+            border-radius: 20px; /* สี่เหลี่ยมมุมมน */
+            border: 2px solid rgba(255, 255, 255, 0.8); 
             object-fit: cover; 
+            background: #060b13;
+            
+            /* แสงนีออน Cyan (#00D4FF และ #5BE8FF) แบบกระจายตัวหลายชั้น (Multiple Layers Bloom) */
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.6),
+                        0 0 25px rgba(91, 232, 255, 0.4),
+                        0 0 45px rgba(0, 212, 255, 0.2),
+                        0 10px 20px rgba(0, 0, 0, 0.5);
         }
 
+        /* เอฟเฟกต์ตอบสนองเมื่อเมาส์ชี้ผ่าน */
         .card-vip:hover {
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(0, 240, 255, 0.3);
-            border-color: rgba(0, 240, 255, 0.6);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.5), 
+                        inset 0 1px 3px rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
         }
         .card-vip:hover #userImg {
-            transform: scale(1.04) rotate(2deg);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.8),
+                        0 0 35px rgba(91, 232, 255, 0.6),
+                        0 0 55px rgba(0, 212, 255, 0.3),
+                        0 15px 25px rgba(0, 0, 0, 0.6);
         }
 
-        /* Cyberpunk Neon Sections */
+        /* ==========================================================================
+           Cyberpunk Neon Sections & Forms
+           ========================================================================== */
         .section { 
             background: var(--card-bg); 
             backdrop-filter: blur(16px);
@@ -195,7 +198,6 @@
             letter-spacing: 0.5px;
         }
         
-        /* Modern Cyber Inputs */
         input, textarea, select { 
             width: 100%; 
             padding: 14px 16px; 
@@ -228,7 +230,6 @@
             background-color: rgba(20, 32, 54, 0.9); 
         }
         
-        /* Premium Glowing Pulse Button */
         .btn-submit { 
             width: 100%; 
             padding: 16px; 
@@ -252,7 +253,6 @@
         .btn-submit:active { transform: scale(0.98); opacity: 0.9; }
         .btn-submit:disabled { background: #333f52; box-shadow: none; border-color: transparent; cursor: not-allowed; }
 
-        /* Tech History List */
         .h-item { 
             border-bottom: 1px solid rgba(46, 61, 82, 0.4); 
             padding: 14px 0; 
@@ -262,7 +262,6 @@
         .h-topic { font-weight: 500; font-size: 0.95rem; margin: 4px 0; color: #ffffff; }
         .h-note { color: var(--text-muted); font-size: 0.85rem; font-weight: 300; background: rgba(0, 0, 0, 0.2); padding: 8px 12px; border-radius: 8px; margin-top: 4px; border-left: 2px solid var(--main-light); }
 
-        /* Sync Loading Overlay */
         .loading { 
             position: fixed; 
             inset: 0; 
@@ -340,9 +339,8 @@
 </div>
 
 <script>
-    // Configuration
     const LIFF_ID = "2008820291-s6WNZ5xr"; 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwRHr0n1l_p04_173JvOEFXo76RciA3YPPzHeoDkYzOanzrK9sqY3XON7CtdOKwtgUo/exec"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGS3J5aQrVWPa5ZSxxbvt4tiTWP8EaxgM4iApxu2hQIs609OY1jVEai6xx5GSC65C8/exec"; 
 
     async function main() {
         try {
@@ -392,7 +390,6 @@
         const ph = document.getElementById("phone").value.trim();
         const note = document.getElementById("userNote").value.trim();
 
-        // Validation
         if (!sub) return alert("กรุณาเลือก SUBJECT / หัวข้อ");
         if (!name || !email || !ph) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
         if (ph.length < 9) return alert("กรุณาตรวจสอบเบอร์โทรศัพท์");
@@ -413,10 +410,8 @@
                 note: note
             };
 
-            // Post to Google Sheets
             await fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) });
 
-            // Send LINE Message
             if (liff.isInClient()) {
                 const ts = new Date().toLocaleString('th-TH');
                 await liff.sendMessages([{
