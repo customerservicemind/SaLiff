@@ -94,13 +94,16 @@
         .card-top-row {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center; /* เปลี่ยนเป็น center เพื่อให้รับกับรูปที่ใหญ่ขึ้น */
             z-index: 2;
+            gap: 15px;
         }
 
         .card-info {
             flex: 1;
-            padding-right: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         /* ป้ายโลโก้ดีไซน์มินิมอลโมเดิร์นขอบขาวกึ่งโปร่งแสง */
@@ -117,6 +120,7 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
             text-shadow: 0 1px 2px rgba(0,0,0,0.3);
             backdrop-filter: blur(5px);
+            align-self: flex-start; /* ให้ป้ายกว้างเท่ากับตัวอักษรด้านใน */
         }
         
         /* ชื่อสมาชิกสีขาวบริสุทธิ์ไล่เฉดไปสีขาวเงาหรูคมจัด */
@@ -130,6 +134,7 @@
             letter-spacing: 0.5px;
             line-height: 1.2;
             text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            word-break: break-word; /* รองรับชื่อยาวไม่ให้ทะลุการ์ด */
         }
         
         .card-avatar-wrap {
@@ -137,15 +142,16 @@
             flex-shrink: 0;
         }
         
+        /* ปรับขนาดโปรไฟล์ให้ใหญ่ขึ้นมากๆ เป็น 140px */
         #userImg { 
-            width: 95px; 
-            height: 95px; 
+            width: 140px; 
+            height: 140px; 
             border-radius: 50%; 
-            border: 2px solid #ffffff; 
+            border: 3px solid #ffffff; /* ปรับขอบให้หนาขึ้นตามขนาดรูป */
             object-fit: cover; 
             background: #060b13;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5),
-                        0 0 15px rgba(0, 198, 255, 0.3);
+                        0 0 25px rgba(0, 198, 255, 0.4);
         }
 
         /* ส่วนแสดงรายละเอียดตัวอักษรสีขาวสว่างชัดเจน */
@@ -183,7 +189,7 @@
         .card-vip:hover #userImg {
             transform: scale(1.03);
             border-color: var(--neon-blue);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 240, 255, 0.5);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 240, 255, 0.6);
         }
 
         /* ==========================================================================
@@ -323,7 +329,7 @@
                 <div id="dispName" class="card-name">GUEST</div>
             </div>
             <div class="card-avatar-wrap">
-                <img id="userImg" src="https://via.placeholder.com/110">
+                <img id="userImg" src="https://via.placeholder.com/140">
             </div>
         </div>
         
@@ -376,7 +382,7 @@
 
 <script>
     const LIFF_ID = "2008820291-s6WNZ5xr"; 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyH8P9avLg1nBDA7Mhp_1L_vDtibfeIFCrBmQmujyJ1c-4ETBj_USZ0rJnPIX71MGw/exec"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyfThU8LCxFiCypIpXqRGrd_qGbu3__kvCsuob18ULheE-Md2PFRRoY_6XJ-hAmvJrT/exec"; 
 
     async function main() {
         try {
