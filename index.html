@@ -39,21 +39,22 @@
         .container { width: 100%; max-width: 430px; margin: 0 auto; }
         
         /* ==========================================================================
-           NEW ULTRA PREMIUM TECH VIP CARD (MODERN BLUE LINE PATTERN)
+           NEW ULTRA PREMIUM TECH VIP CARD (MODERN BLUE LINE PATTERN + ANIMATED GLOW)
            ========================================================================== */
         .card-vip { 
-            background: linear-gradient(135deg, #090d16 0%, #05142c 100%); 
+            background: linear-gradient(135deg, #0b1e3d 0%, #051026 50%, #0c254e 100%); 
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             position: relative;
             padding: 28px 24px; 
             border-radius: 20px; 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7),
-                        inset 0 1px 0px rgba(255, 255, 255, 0.1),
-                        0 0 40px rgba(0, 136, 255, 0.15);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                        inset 0 -1px 1px rgba(0, 240, 255, 0.2),
+                        0 0 30px rgba(0, 136, 255, 0.2);
             margin-bottom: 25px; 
             overflow: hidden; 
-            border: 1px solid rgba(0, 240, 255, 0.25); 
+            border: 1px solid rgba(0, 240, 255, 0.4); 
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -73,18 +74,24 @@
             pointer-events: none;
         }
 
-        /* เส้นแสงพาดเฉียงบางๆ เพิ่มความหรูหราแบบการ์ดวัสดุคาร์บอน/ไทเทเนียม */
+        /* เส้นแสงพาดเฉียงแบบขยับแอนิเมชันเพิ่มความหรูหรา */
         .card-vip::after {
             content: "";
             position: absolute;
             top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(125deg, transparent 45%, rgba(0, 240, 255, 0.08) 48%, rgba(0, 240, 255, 0.15) 50%, rgba(0, 240, 255, 0.08) 52%, transparent 55%);
+            left: -60%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(115deg, transparent 40%, rgba(0, 240, 255, 0.03) 45%, rgba(0, 240, 255, 0.18) 50%, rgba(0, 240, 255, 0.03) 55%, transparent 60%);
             transform: rotate(0deg);
             z-index: 1;
             pointer-events: none;
+            animation: shineCard 8s infinite linear;
+        }
+
+        @keyframes shineCard {
+            0% { transform: translate(-30%, -30%) rotate(0deg); }
+            100% { transform: translate(10%, 10%) rotate(0deg); }
         }
 
         .card-top-row {
@@ -142,7 +149,7 @@
             width: 100px; 
             height: 100px; 
             border-radius: 50%; 
-            border: 2px solid var(--text-cyber);
+            border: 2px solid var(--neon-blue);
             object-fit: cover; 
             background: #020617;
             box-shadow: 0 0 0 4px rgba(6, 11, 22, 0.8),
@@ -162,7 +169,7 @@
         
         .card-detail { 
             font-size: 0.8rem; 
-            color: rgba(255, 255, 255, 0.55); 
+            color: rgba(255, 255, 255, 0.65); 
             font-weight: 300;
             letter-spacing: 0.5px;
             display: flex;
@@ -179,7 +186,7 @@
         }
 
         .card-detail span {
-            color: #ffffff;
+            color: var(--tech-cyan);
             font-weight: 500;
             margin-left: auto; /* ดันข้อมูลรายละเอียดไปชิดขวาสุดเพื่อความสวยงามเป็นระเบียบ */
             text-shadow: 0 1px 4px rgba(0,0,0,0.4);
@@ -190,7 +197,7 @@
             border-color: var(--neon-blue);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
                         inset 0 1px 0px rgba(255, 255, 255, 0.2),
-                        0 0 40px rgba(0, 240, 255, 0.3);
+                        0 0 40px rgba(0, 240, 255, 0.4);
             transform: translateY(-2px);
         }
         .card-vip:hover #userImg {
@@ -389,7 +396,7 @@
 
 <script>
     const LIFF_ID = "2008820291-s6WNZ5xr"; 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwJWdUQC_RB1gBSrIuNMAEZy73EeJVjyAFgxOkj7f9i1ku4BkXjuDimGnXwcNDVkmHF/exec"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzo7FMjAkJgs8wtXtGaQLznL47eTQ2t_0E36BIrevgII23kaNII_r-UB7VpZ6EUaLFJ/exec"; 
 
     async function main() {
         try {
