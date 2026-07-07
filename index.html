@@ -11,6 +11,8 @@
             --main: #0052cc; 
             --main-light: #00c6ff;
             --neon-blue: #00f0ff;
+            --tech-cyan: #00e5ff;
+            --tech-blue: #0088ff;
             --bg: #060b13; 
             --card-bg: rgba(13, 22, 38, 0.65);
             --text-light: #ffffff;
@@ -36,60 +38,62 @@
         .container { width: 100%; max-width: 430px; margin: 0 auto; }
         
         /* ==========================================================================
-           NEW ULTRA PREMIUM TECH VIP CARD (MODERN PATTERN & LARGE AVATAR)
+           NEW ULTRA PREMIUM TECH VIP CARD (MODERN BLUE CYBER PATTERN)
            ========================================================================== */
         .card-vip { 
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%); 
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
+            /* ไล่เฉดสีฟ้าเข้มสไตล์กระจกเงาไฮเทค */
+            background: linear-gradient(135deg, rgba(0, 40, 95, 0.6) 0%, rgba(0, 20, 50, 0.4) 100%); 
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
             
             position: relative;
             padding: 35px 24px; 
             border-radius: 28px; 
             
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55), 
-                        inset 0 1px 0px rgba(255, 255, 255, 0.3),
-                        inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+            /* เพิ่มมิติความลึกและการสะท้อนของขอบการ์ด */
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6), 
+                        inset 0 1px 1px rgba(0, 240, 255, 0.4),
+                        inset 0 -1px 2px rgba(0, 0, 0, 0.6),
+                        0 0 30px rgba(0, 136, 255, 0.15);
                         
             margin-bottom: 25px; 
             overflow: hidden; 
-            border: 1px solid rgba(255, 255, 255, 0.12); 
+            border: 1px solid rgba(0, 240, 255, 0.25); 
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        /* ลวดลายเทคโนโลยีแบบโมเดิร์นคัตติ้ง (Abstract Technology Lines) */
+        /* ลวดลายวงจรและเส้นสายเทคโนโลยีสีฟ้า (Abstract Circuit Lines) */
         .card-vip::before {
             content: "";
             position: absolute;
             inset: 0;
             background-image: 
-                linear-gradient(30deg, rgba(0, 240, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(0, 240, 255, 0.05) 87.5%),
-                linear-gradient(150deg, rgba(0, 240, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(0, 240, 255, 0.05) 87.5%),
-                linear-gradient(30deg, rgba(0, 240, 255, 0.05) 34%, transparent 34.5%, transparent 65%, rgba(0, 240, 255, 0.05) 65.5%),
-                linear-gradient(150deg, rgba(0, 240, 255, 0.05) 34%, transparent 34.5%, transparent 65%, rgba(0, 240, 255, 0.05) 65.5%);
-            background-size: 80px 140px;
+                linear-gradient(30deg, rgba(0, 240, 255, 0.08) 12%, transparent 12.5%, transparent 87%, rgba(0, 240, 255, 0.08) 87.5%),
+                linear-gradient(150deg, rgba(0, 240, 255, 0.08) 12%, transparent 12.5%, transparent 87%, rgba(0, 240, 255, 0.08) 87.5%),
+                linear-gradient(30deg, rgba(0, 136, 255, 0.06) 34%, transparent 34.5%, transparent 65%, rgba(0, 136, 255, 0.06) 65.5%),
+                linear-gradient(150deg, rgba(0, 136, 255, 0.06) 34%, transparent 34.5%, transparent 65%, rgba(0, 136, 255, 0.06) 65.5%);
+            background-size: 60px 105px;
             background-position: 0 0;
-            opacity: 0.6;
+            opacity: 0.75;
             z-index: 1;
             pointer-events: none;
         }
 
-        /* แสงสะท้อนเรืองสีฟ้าเพิ่มมิติ */
+        /* แสงออร่าเรืองรองสีฟ้าสว่างวาบจากมุมการ์ด */
         .card-vip::after {
             content: "";
             position: absolute;
-            top: -50%;
+            top: -60%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at 30% 30%, rgba(0, 240, 255, 0.12) 0%, transparent 50%);
+            background: radial-gradient(circle at 30% 30%, rgba(0, 240, 255, 0.2) 0%, rgba(0, 88, 255, 0.05) 40%, transparent 70%);
             z-index: 1;
             pointer-events: none;
         }
 
-        /* ปรับ Layout ด้านในแบ่งบนล่างเพื่อโชว์ความโปร่งและลวดลาย */
         .card-top-row {
             display: flex;
             justify-content: space-between;
@@ -102,21 +106,23 @@
             padding-right: 15px;
         }
         
-        /* ปลอกป้ายแบบพรีเมียมเมทัลลิก */
+        /* ป้ายโลโก้สมาชิกแบบมีไฟนีออนวงแหวน */
         .card-label { 
             font-size: 0.7rem; 
             letter-spacing: 2px; 
             font-weight: 700; 
-            color: var(--neon-blue); 
+            color: #ffffff; 
             display: inline-block; 
             margin-bottom: 12px;
-            background: rgba(0, 240, 255, 0.1);
-            padding: 4px 12px;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.35), rgba(0, 82, 204, 0.4));
+            padding: 5px 14px;
             border-radius: 50px;
-            border: 1px solid rgba(0, 240, 255, 0.25);
-            text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+            border: 1px solid var(--neon-blue);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
         }
         
+        /* ชื่อสมาชิกไล่เฉดสีฟ้าไอซ์บลูสว่าง */
         .card-name { 
             font-size: 2rem; 
             font-weight: 700; 
@@ -126,12 +132,13 @@
             text-align: left;
             letter-spacing: 0.5px;
             line-height: 1.15;
-            background: linear-gradient(to right, #ffffff 60%, #bcdaff 100%);
+            background: linear-gradient(to right, #ffffff 40%, var(--neon-blue) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
         
-        /* ขยายรูปโปรไฟล์ขนาดใหญ่โดดเด่นสไตล์ VIP */
+        /* กรอบรูปโปรไฟล์สไตล์ Sci-Fi HUD */
         .card-avatar-wrap {
             position: relative;
             flex-shrink: 0;
@@ -141,17 +148,17 @@
             width: 110px; 
             height: 110px; 
             border-radius: 24px; 
-            border: 2px solid rgba(255, 255, 255, 0.8); 
+            border: 2px solid var(--neon-blue); 
             object-fit: cover; 
             background: #060b13;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4),
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5),
                         0 15px 30px rgba(0, 0, 0, 0.6);
         }
 
-        /* ส่วนท้ายการ์ดจัดวางรายละเอียดข้อมูลเว้นระยะพรีเมียม */
+        /* ส่วนแสดงรายละเอียดล่างการ์ด */
         .card-detail-group {
             z-index: 2;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(0, 240, 255, 0.25);
             padding-top: 18px;
             display: flex;
             flex-direction: column;
@@ -160,30 +167,32 @@
         
         .card-detail { 
             font-size: 0.85rem; 
-            color: rgba(255, 255, 255, 0.65); 
+            color: rgba(200, 230, 255, 0.7); 
             font-weight: 300;
             letter-spacing: 0.5px;
             display: flex;
             align-items: center;
         }
         .card-detail span {
-            color: #ffffff;
+            color: var(--neon-blue);
             font-weight: 500;
             margin-left: 6px;
+            text-shadow: 0 0 4px rgba(0, 240, 255, 0.2);
         }
         
-        /* Interactive Hover */
+        /* Interactive Hover (เอฟเฟกต์เมื่อเอานิ้วแตะ/เมาส์ชี้) */
         .card-vip:hover {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 100%);
-            box-shadow: 0 45px 90px rgba(0, 0, 0, 0.65), 
-                        inset 0 1px 0px rgba(255, 255, 255, 0.4);
-            border-color: rgba(0, 240, 255, 0.3);
+            background: linear-gradient(135deg, rgba(0, 50, 120, 0.7) 0%, rgba(0, 25, 65, 0.5) 100%);
+            box-shadow: 0 45px 90px rgba(0, 0, 0, 0.7), 
+                        inset 0 1px 1px rgba(0, 240, 255, 0.6),
+                        0 0 40px rgba(0, 240, 255, 0.3);
+            border-color: var(--neon-blue);
         }
         .card-vip:hover #userImg {
             transform: translateY(-4px) rotate(2deg);
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.7),
+            box-shadow: 0 0 30px var(--neon-blue),
                         0 20px 35px rgba(0, 0, 0, 0.7);
-            border-color: var(--neon-blue);
+            border-color: #ffffff;
         }
 
         /* ==========================================================================
@@ -376,7 +385,7 @@
 
 <script>
     const LIFF_ID = "2008820291-s6WNZ5xr"; 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwA1ufrreZLFkUFe2NYQDmcPZJ8ASnfnXf90D8xw_xaQ0YYcvHo0kt0zleQHvBBGdm6/exec"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyW9Dm3Q1xefzVYGFz-ox5ce1kt7sOEyryz3ThHWKoVihBFBjQmHbb_r0Y-Mioi4h6o/exec"; 
 
     async function main() {
         try {
